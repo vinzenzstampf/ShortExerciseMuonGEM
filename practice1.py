@@ -36,16 +36,13 @@ for iev, event in enumerate(events):
             if sh.detUnitId() == rh.gemId().rawId():
                 dx = sh.localPosition().x() - rh.localPosition().x()
                 h_dx.Fill(dx)
-            if abs(dx) < 0.5:
-                matched = True
-        h_sim_ieta_matched.Fill(gemDetId.roll())
+                if abs(dx) < 0.5:
+                    matched = True
+        if matched: h_sim_ieta_matched.Fill(gemDetId.roll())
 
 c = ROOT.TCanvas()
-eff = ROOT.TEfficiency(h_sim_ieta, h_sim_ieta_matched)
+eff = ROOT.TEfficiency(h_sim_ieta_matched, h_sim_ieta)
 eff.Draw()
 c.Print("eff.png")
-
-h_dx.Fit('gaus')
-
-
-
+h_dx.Fit("gaus")
+h_dx.Draw()
