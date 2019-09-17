@@ -32,6 +32,7 @@ for iev, event in enumerate(events):
 
         matched = False
         for rh in gemRecHits.product():
+            dx = -99
             if sh.detUnitId() == rh.gemId().rawId():
                 dx = sh.localPosition().x() - rh.localPosition().x()
                 h_dx.Fill(dx)
@@ -43,3 +44,8 @@ c = ROOT.TCanvas()
 eff = ROOT.TEfficiency(h_sim_ieta, h_sim_ieta_matched)
 eff.Draw()
 c.Print("eff.png")
+
+h_dx.Fit('gaus')
+
+
+

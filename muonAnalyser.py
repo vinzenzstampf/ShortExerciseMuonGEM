@@ -14,9 +14,9 @@ for iev, event in enumerate(events):
     for mu in muons.product(): 
         for chamber in mu.matches():
             for seg in chamber.gemMatches:
-                if seg.gemSegmentRef.gemDetId().station()  == 1:
+                if seg.gemSegmentRef.gemDetId().station() == 1:
                     dx = chamber.x - seg.gemSegmentRef.get().localPosition().x() 
-                    #print dx
+                    print dx
 
         muTrack = mu.standAloneMuon() # track built with only muon system
         if muTrack.isNonnull():
